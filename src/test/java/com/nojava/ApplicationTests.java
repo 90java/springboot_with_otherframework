@@ -1,23 +1,20 @@
 package com.nojava;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.hamcrest.Matchers.equalTo;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import static org.assertj.core.api.Assertions.assertThat;
+
 
 /**
  * 该类是进行springboot测试的类
@@ -29,22 +26,34 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-//@AutoConfigureMockMvc
+@AutoConfigureMockMvc
 //@AutoConfigureWebTestClient
 class ApplicationTests {
 
     /**
      * 测试1---MockMvc
      */
-//    @Autowired
-//    private MockMvc mvc;
-//    @Test
-//    public void exampleTest01() throws Exception {
-//        this.mvc.perform(get("/hello"))
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.content().string("Hello World"))
-//                .andReturn();
-//    }
+    @Autowired
+    private MockMvc mvc;
+
+    /**
+     *
+     * @throws Exception
+     */
+    @Test
+    public void getHello() throws Exception {
+        mvc.perform(
+                MockMvcRequestBuilders.get("/")   //请求路径
+                .accept(MediaType.APPLICATION_JSON))           //添加请求首部字段Accept
+                .andExpect(status().isOk())                     // andExpect() 对返回信息进行验证
+                .andExpect(content().string(equalTo("Greetings from Spring Boot!1")));
+    }
+
+
+
+
+
+
 
     /**
      * 测试2---WebTestClient

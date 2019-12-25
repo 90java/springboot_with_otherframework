@@ -1,24 +1,40 @@
 package com.nojava;
 
+
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 
-@RestController
+import java.util.Arrays;
+
 @SpringBootApplication
 public class Application {
 
-
-    @RequestMapping("/hello")
-    public String getHello(){
-        return "Hello World";
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+    }
+
+    /**
+     * 查看Spring Boot内注册的Bean
+     * @param ctx
+     * @return
+     */
+//    @Bean
+    public CommandLineRunner commandLineRunner(ApplicationContext ctx){
+        return args -> {
+            System.out.println("Spring Boot 提供的Bean:");
+            String[] beanNames = ctx.getBeanDefinitionNames();
+            Arrays.sort(beanNames);
+            System.out.println("---------------------bean start-----------------------------");
+            for (String beanName : beanNames) {
+                System.out.println(beanName);
+            }
+            System.out.println("---------------------bean end-----------------------------");
+
+            System.out.println("---------------------华丽分割线-----------------------------");
+        };
     }
 
 }
