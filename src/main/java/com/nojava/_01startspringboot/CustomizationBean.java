@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  * 使用代码的方式进行设置端口号
  */
-@Component
+//@Component
 public class CustomizationBean implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
 
     @Override

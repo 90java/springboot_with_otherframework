@@ -1,6 +1,7 @@
 package com.nojava;
 
 
+import com.nojava._01startspringboot.StartCommand;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +14,8 @@ import java.util.Arrays;
 public class Application {
 
     public static void main(String[] args) {
+        new StartCommand(args);
+        System.out.println("------------");
         SpringApplication.run(Application.class, args);
     }
 
